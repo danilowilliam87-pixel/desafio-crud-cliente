@@ -28,7 +28,7 @@ public class Cliente implements Serializable {
     @Column(name = "BIRTH_DATE")
     private LocalDate birthDate;
 
-    @Column(name = "NAME")
+    @Column(name = "CHILDREN")
     private Integer children;
 
     public Cliente() {
