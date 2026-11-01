@@ -1,5 +1,6 @@
 package com.io.desafiocrudcliente.model;
 
+import com.io.desafiocrudcliente.dto.ClienteDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -48,6 +49,14 @@ public class Cliente implements Serializable {
         this.income = income;
         this.birthDate = birthDate;
         this.children = children;
+    }
+
+    public Cliente(ClienteDTO clienteDTO){
+        this.name = clienteDTO.getName();
+        this.cpf = clienteDTO.getCpf();
+        this.income = clienteDTO.getIncome();
+        this.birthDate = clienteDTO.getBirthDate();
+        this.children = clienteDTO.getChildren();
     }
 
     public Long getId() {
