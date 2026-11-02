@@ -6,14 +6,18 @@ public class ResponseError {
 
     private Instant instant;
     private String message;
-    private Integer statucCode;
+    private Integer statusCode;
     private String path;
 
     public ResponseError(Instant instant, String message, Integer statucCode, String path) {
         this.instant = instant;
         this.message = message;
-        this.statucCode = statucCode;
+        this.statusCode = statucCode;
         this.path = path;
+    }
+
+    public ResponseError() {
+
     }
 
     public Instant getInstant() {
@@ -32,12 +36,12 @@ public class ResponseError {
         this.message = message;
     }
 
-    public Integer getStatucCode() {
-        return statucCode;
+    public Integer getStatusCode() {
+        return statusCode;
     }
 
-    public void setStatucCode(Integer statucCode) {
-        this.statucCode = statucCode;
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getPath() {
