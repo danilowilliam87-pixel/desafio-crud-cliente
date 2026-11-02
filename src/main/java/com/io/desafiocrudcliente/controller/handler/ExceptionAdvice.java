@@ -28,7 +28,7 @@ public class ExceptionAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException ex, HttpServletRequest httpServlet) {
+    public ResponseEntity<ResponseError> methodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest httpServlet) {
 
         FieldsValidationException responseError = new FieldsValidationException(Instant.now(),
                 "Erro de validação",

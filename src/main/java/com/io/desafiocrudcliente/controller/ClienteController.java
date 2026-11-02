@@ -3,6 +3,8 @@ package com.io.desafiocrudcliente.controller;
 import com.io.desafiocrudcliente.dto.ClienteDTO;
 import com.io.desafiocrudcliente.service.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -34,5 +36,10 @@ public class ClienteController {
                 .buildAndExpand(dto.getId())
                 .toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @GetMapping
+    public Page<ClienteDTO> findAllPaged(Pageable pageable){
+        return this.clienteService.findAll(pageable);
     }
 }
