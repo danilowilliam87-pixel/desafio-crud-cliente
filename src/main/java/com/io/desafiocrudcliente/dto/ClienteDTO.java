@@ -11,6 +11,8 @@ import java.util.Objects;
 @JsonPropertyOrder({ "id", "name", "cpf", "income", "birthDate", "children" })
 public class ClienteDTO {
 
+    private Long id;
+
     @NotBlank(message = "{cliente.nome.obrigatorio}")
     @Size(min = 3, message = "{cliente.nome.tamanho}")
     private String name;
@@ -36,11 +38,20 @@ public class ClienteDTO {
     }
 
     public ClienteDTO(Cliente cliente) {
+        this.id = cliente.getId();
         this.name = cliente.getName();
         this.cpf = cliente.getCpf();
         this.income = cliente.getIncome();
         this.birthDate = cliente.getBirthDate();
         this.children = cliente.getChildren();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

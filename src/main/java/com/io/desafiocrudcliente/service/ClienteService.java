@@ -4,6 +4,7 @@ import com.io.desafiocrudcliente.dto.ClienteDTO;
 import com.io.desafiocrudcliente.model.Cliente;
 import com.io.desafiocrudcliente.repository.ClienteRepository;
 import com.io.desafiocrudcliente.service.exception.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,12 @@ public class ClienteService {
     public ClienteDTO findById(Long id){
         Cliente cliente = this.clienteRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException("cliente inexistente"));
+        return new ClienteDTO(cliente);
+    }
+
+    public ClienteDTO insert(@Valid ClienteDTO clienteDTO) {
+        Cliente cliente = new Cliente(clienteDTO);
+        cliente = this.clienteRepository.save(cliente);
         return new ClienteDTO(cliente);
     }
 }
