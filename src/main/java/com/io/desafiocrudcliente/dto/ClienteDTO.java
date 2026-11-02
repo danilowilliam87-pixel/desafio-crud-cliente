@@ -1,5 +1,6 @@
 package com.io.desafiocrudcliente.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.io.desafiocrudcliente.model.Cliente;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
@@ -7,6 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@JsonPropertyOrder({ "id", "name", "cpf", "income", "birthDate", "children" })
 public class ClienteDTO {
 
     @NotBlank(message = "{cliente.nome.obrigatorio}")
@@ -33,7 +35,7 @@ public class ClienteDTO {
         this.children = children;
     }
 
-    public ClienteDTO(Cliente cliente){
+    public ClienteDTO(Cliente cliente) {
         this.name = cliente.getName();
         this.cpf = cliente.getCpf();
         this.income = cliente.getIncome();
@@ -83,7 +85,8 @@ public class ClienteDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ClienteDTO that = (ClienteDTO) o;
         return Objects.equals(name, that.name) && Objects.equals(cpf, that.cpf);
     }
