@@ -31,8 +31,8 @@ public class ExceptionAdvice {
     public ResponseEntity<ResponseError> handleException(MethodArgumentNotValidException ex, HttpServletRequest httpServlet) {
 
         FieldsValidationException responseError = new FieldsValidationException(Instant.now(),
-                ex.getMessage(),
-                500,
+                "Erro de validação",
+                422,
                 httpServlet.getRequestURI());
 
         ex.getBindingResult().getFieldErrors().forEach(error -> {
