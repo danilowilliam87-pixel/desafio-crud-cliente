@@ -41,4 +41,15 @@ public class ExceptionAdvice {
 
         return ResponseEntity.status(422).body(responseError);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseError> badRequest(MethodArgumentNotValidException ex, HttpServletRequest httpServlet) {
+
+        ResponseError responseError = new ResponseError(Instant.now(),
+                "Erro ao processar requisição",
+                400,
+                httpServlet.getRequestURI());
+
+        return ResponseEntity.status(400).body(responseError);
+    }
 }

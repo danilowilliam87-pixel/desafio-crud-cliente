@@ -42,4 +42,16 @@ public class ClienteController {
     public Page<ClienteDTO> findAllPaged(Pageable pageable){
         return this.clienteService.findAll(pageable);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteDTO> update(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO){
+        ClienteDTO dto = this.clienteService.update(id, clienteDTO);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        this.clienteService.findById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -30,9 +30,19 @@ public class ClienteService {
         return new ClienteDTO(cliente);
     }
 
-
-
     public Page<ClienteDTO> findAll(Pageable pageable) {
         return this.clienteRepository.findAll(pageable).map(ClienteDTO::new);
     }
+
+    public ClienteDTO update(Long id, @Valid ClienteDTO clienteDTO){
+        ClienteDTO dto = this.findById(id);
+        dto.setCpf(clienteDTO.getCpf());
+        dto.setChildren(clienteDTO.getChildren());
+        dto.setName(clienteDTO.getName());
+        dto.setBirthDate(clienteDTO.getBirthDate());
+        Cliente cliente = new Cliente(dto);
+        cliente = this.clienteRepository.save(cliente);
+        return new ClienteDTO(cliente);
+    }
+
 }
