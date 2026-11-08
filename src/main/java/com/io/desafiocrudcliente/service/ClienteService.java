@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 @Service
 public class ClienteService {
 
@@ -35,14 +38,27 @@ public class ClienteService {
     }
 
     public ClienteDTO update(Long id, @Valid ClienteDTO clienteDTO){
-        ClienteDTO dto = this.findById(id);
-        dto.setCpf(clienteDTO.getCpf());
-        dto.setChildren(clienteDTO.getChildren());
-        dto.setName(clienteDTO.getName());
-        dto.setBirthDate(clienteDTO.getBirthDate());
-        Cliente cliente = new Cliente(dto);
+        Cliente cliente = this.clienteRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("cliente inexistente"));
+        String name = Objects.requireNonNullElse(clienteDTO.getName(), cliente.getName());
+        String cpf = Objects.requireNonNullElse(clienteDTO.getCpf(), cliente.getCpf());
+        Double income = Objects.requireNonNullElse(clienteDTO.getIncome(), cliente.getIncome());
+        LocalDate birthDate = Objects.requireNonNullElse(clienteDTO.getBirthDate(), cliente.getBirthDate());
+        Integer children = Objects.requireNonNullElse(clienteDTO.getChildren(), cliente.getChildren());
+        cliente.setName(name);
+        cliente.setCpf(cpf);
+        cliente.setIncome(income);
+        cliente.setBirthDate(birthDate);
+        cliente.setChildren(children);
         cliente = this.clienteRepository.save(cliente);
+
         return new ClienteDTO(cliente);
+    }
+
+    public void delete(Long id){
+        this.clienteRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("cliente inexistente"));
+        this.clienteRepository.deleteById(id);
     }
 
 }
