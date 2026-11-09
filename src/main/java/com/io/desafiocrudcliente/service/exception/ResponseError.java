@@ -1,7 +1,10 @@
 package com.io.desafiocrudcliente.service.exception;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.time.Instant;
 
+@JsonPropertyOrder({"instant", "message", "statusCode", "path"})
 public class ResponseError {
 
     private Instant instant;
